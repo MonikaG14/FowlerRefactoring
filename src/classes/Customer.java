@@ -21,30 +21,41 @@ public class Customer {
     }
 
     public String statement() {
-        double totalAmount = 0;
-        int frequentRenterPoints = 0;
-        Enumeration enum_rentals = rentals.elements();	    
+        return getRentalRecord();
+    }
+
+    private String getRentalRecord() {
         String result = "classes.Rental Record for " + this.getName() + "\n";
         result += "\t" + "Title" + "\t" + "\t" + "Days" + "\t" + "Amount" + "\n";
+        result += calculateRentalRecord();
+        return result;
+    }
+
+    private String calculateRentalRecord() {
+        double totalAmount = 0;
+        int frequentRenterPoints = 0;
+        Enumeration enum_rentals = rentals.elements();
+        String allRentalDates = "";
 
         while (enum_rentals.hasMoreElements()) {
             double thisAmount = 0;
             Rental each = (Rental) enum_rentals.nextElement();
             //determine amounts for each line
             thisAmount = amountFor(each);
-
             frequentRenterPoints = addFrequentRenterPoints(frequentRenterPoints);
             // add bonus for a two day new release rental
-            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1) 
+            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE) && each.getDaysRented() > 1)
                 frequentRenterPoints++;
             //show figures for this rental
-            result += "\t" + each.getMovie().getTitle()+ "\t" + "\t" + each.getDaysRented() + "\t" + String.valueOf(thisAmount) + "\n";
+            allRentalDates += "\t" + each.getMovie().getTitle()+ "\t" + "\t" + each.getDaysRented() + "\t" + String.valueOf(thisAmount) + "\n";
             totalAmount += thisAmount;
+
         }
-        //add footer lines
-        result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-        result += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
-        return result;
+
+        allRentalDates += "Amount owed is " + String.valueOf(totalAmount) + "\n";
+        allRentalDates += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
+
+        return allRentalDates;
     }
 
     private int addFrequentRenterPoints(int frequentRenterPoints) {

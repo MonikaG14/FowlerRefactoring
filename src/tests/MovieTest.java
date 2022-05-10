@@ -10,12 +10,11 @@ class MovieTest {
 
     private Movie movie;
     private String name;
-    private int pieceCode;
 
     @BeforeEach
     void setup() {
         this.name = randomString();
-        this.pieceCode = (int) (Math.random() * 3);
+        int pieceCode = (int) (Math.random() * 3);
         this.movie = new Movie(name, pieceCode);
     }
 

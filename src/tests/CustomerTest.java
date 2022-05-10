@@ -24,8 +24,8 @@ class CustomerTest {
 
     @Test
     void testStatement() {
-        assertTrue(customer.statement().startsWith("Rental Record for " + name));
-        assertTrue(customer.statement().endsWith("frequent renter points"));
+        assertTrue(customer.getRentalRecord().startsWith("Rental Record for " + name));
+        assertTrue(customer.getRentalRecord().endsWith("frequent renter points"));
     }
 
     private String randomString() {

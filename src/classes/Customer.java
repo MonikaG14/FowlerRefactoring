@@ -42,9 +42,8 @@ public class Customer {
             Rental rental = (Rental) enum_rentals.nextElement();
             //determine amounts for rental line
             thisAmount = rental.getAmountFor();
-            frequentRenterPoints = addFrequentRenterPoints(frequentRenterPoints);
+            frequentRenterPoints += 1;
             // add bonus for a two day new release rental
-            boolean movieIsNewRelease = rental.getMovie().getMoviePrice() == MoviePrice.NEW_RELEASE;
             if ((rental.getMovie().getMoviePrice() == MoviePrice.NEW_RELEASE) && rental.getDaysRented() > 1)
                 frequentRenterPoints++;
             //show figures for this rental
@@ -57,11 +56,6 @@ public class Customer {
         allRentalDates += "You earned " + String.valueOf(frequentRenterPoints) + " frequent renter points";
 
         return allRentalDates;
-    }
-
-    private int addFrequentRenterPoints(int frequentRenterPoints) {
-        frequentRenterPoints++;
-        return frequentRenterPoints;
     }
 
 }
